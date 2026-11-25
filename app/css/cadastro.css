@@ -1,0 +1,357 @@
+/* =========================================================
+   SmartParking, página de cadastro
+   Mesmas classes do HTML atual; só o CSS foi melhorado.
+   ========================================================= */
+
+:root {
+  --bg-card: #0c2038;
+  --bg-campo: #13314b;
+  --bg-campo-hover: #163a58;
+  --texto: #ebf4fb;
+  --texto-suave: #8fb0c9;
+  /* antes #62829c: contraste baixo sobre o campo */
+  --turquesa: #02dbb5;
+  --turquesa-hover: #15e1b9;
+  --borda: rgba(255, 255, 255, .12);
+  --erro: #ff8a8a;
+  --raio: 10px;
+  --fonte: 'Segoe UI', system-ui, -apple-system, Tahoma, Verdana, sans-serif;
+  color-scheme: dark;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* A fonte vai no body e é herdada; o "* { font-family }" antigo quebrava ícones de fonte */
+body {
+  font-family: var(--fonte);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  /* espaço mínimo entre a nav e o card */
+  padding-bottom: 2rem;
+  background: linear-gradient(rgba(12, 32, 56, .38), rgba(12, 32, 56, .38)),
+    url("../img/fundo_cadastro.jpg") center / cover no-repeat fixed;
+}
+
+.nav {
+  width: 100%;
+}
+
+/* ---------- Card ---------- */
+.card {
+  position: relative;
+  width: min(100% - 2rem, 450px);
+  margin: auto;
+  /* centraliza no espaço que sobra abaixo da nav */
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .06) inset,
+    0 18px 40px -12px rgba(8, 28, 48, .45);
+  overflow: hidden;
+}
+
+/* Filete turquesa no topo do card */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--turquesa), #3a8dde);
+}
+
+/* ---------- Cabeçalho ---------- */
+.header-cadastro {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.5rem;
+}
+
+.icon-main {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--turquesa);
+  color: var(--bg-card);
+  box-shadow: 0 0 0 5px rgba(2, 219, 181, .15);
+}
+
+.titulolog {
+  font-size: 1.6rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--texto);
+}
+
+/* opcional: <p class="subtitulo"> abaixo do título */
+.subtitulo {
+  margin-top: 2px;
+  font-size: .9rem;
+  color: var(--texto-suave);
+}
+
+/* ---------- Formulário ---------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.form-row .input-group {
+  flex: 1;
+  min-width: 0;
+  /* evita que um campo estoure o flex */
+}
+
+/* Campo */
+.input-group {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 14px;
+  background: var(--bg-campo);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+.input-group:hover {
+  background: var(--bg-campo-hover);
+}
+
+.input-group:focus-within {
+  border-color: var(--turquesa);
+  box-shadow: 0 0 0 3px rgba(2, 219, 181, .22);
+}
+
+/* Estado inválido (só depois que a pessoa digitou algo) */
+.input-group:has(input:invalid:not(:placeholder-shown):not(:focus)) {
+  border-color: var(--erro);
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  color: var(--texto-suave);
+  transition: color .2s;
+}
+
+.input-group:focus-within .input-icon {
+  color: var(--turquesa);
+}
+
+.formulario label {
+  margin-right: 8px;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+
+/* Inputs nativos */
+.formulario input {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--texto);
+  font: inherit;
+  font-size: 1rem;
+  /* 16px: evita o zoom automático no iPhone */
+}
+
+/* Select (ex.: Modelo): sem o visual nativo, com seta própria */
+select {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0 28px 0 0;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2302dbb5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 2px center / 16px !important;
+  border: 0;
+  outline: 0;
+  color: var(--texto);
+  font: inherit;
+  font-size: 1rem;
+  /* 16px: evita o zoom automático no iPhone */
+  cursor: pointer;
+}
+
+/* "Selecione um modelo" fica apagado até a pessoa escolher */
+select:required:invalid {
+  color: #6f93ad;
+}
+
+/* Lista que abre ao clicar */
+select option {
+  background: var(--bg-campo);
+  color: var(--texto);
+}
+
+select option[disabled] {
+  color: #6f93ad;
+}
+
+.formulario input::placeholder {
+  color: #6f93ad;
+  opacity: 1;
+}
+
+/* Preenchimento automático (Chrome, Edge e Safari) sem o fundo branco */
+.formulario input:-webkit-autofill,
+.formulario input:-webkit-autofill:hover,
+.formulario input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--texto) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-campo) inset !important;
+  caret-color: var(--texto);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Mensagem de erro opcional: <small class="erro">texto</small> */
+.erro {
+  margin-top: -4px;
+  font-size: .8rem;
+  color: var(--erro);
+}
+
+/* ---------- Subseção Veículo ---------- */
+.subsecao-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 1rem 0 .25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--borda);
+  /* separa dados pessoais e veículo */
+}
+
+.car-icon {
+  color: var(--turquesa);
+  font-size: 1.2rem;
+}
+
+.subsecao-titulo h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+/* ---------- Link de login ---------- */
+.login-link {
+  margin: 4px 0;
+  font-size: .9rem;
+  color: var(--texto-suave);
+}
+
+.login-link a {
+  margin-left: 6px;
+  color: var(--turquesa);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Botão ---------- */
+.submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: var(--turquesa);
+  color: var(--bg-card);
+  border: none;
+  border-radius: var(--raio);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color .2s, transform .15s, box-shadow .2s;
+}
+
+.submit:hover {
+  background: var(--turquesa-hover);
+  box-shadow: 0 8px 20px -8px rgba(2, 219, 181, .6);
+  transform: translateY(-1px);
+}
+
+.submit:active {
+  transform: scale(.99);
+}
+
+.submit:disabled {
+  background: #2c4a5f;
+  color: #7f9db3;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---------- Foco visível (teclado) ---------- */
+.submit:focus-visible,
+.login-link a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 480px) {
+  .card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  /* campos lado a lado viram coluna */
+  .titulolog {
+    font-size: 1.4rem;
+  }
+}
+
+/* ---------- Menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

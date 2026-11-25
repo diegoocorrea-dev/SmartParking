@@ -1,0 +1,374 @@
+:root {
+    --navy: #0F172A;
+    --teal: #14B8A6;
+    --mint: #A7F3D0;
+    --soft: #F1F5F9;
+    --gray: #94A3B8;
+    color-scheme: light
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--navy);
+    background: var(--soft);
+    overflow: hidden
+}
+
+/* ===== CENA E ANIMAÇÃO DO CARRO ===== */
+.cena {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden
+}
+
+.cena img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right bottom
+}
+
+#carro {
+    transform: translateX(-110%);
+    will-change: transform
+}
+
+/* fora da tela (esquerda) */
+#carro.entra {
+    animation: entra both cubic-bezier(.16, .84, .3, 1)
+}
+
+/* chega e freia suave */
+#carro.sai {
+    animation: sai both cubic-bezier(.7, 0, .9, .5)
+}
+
+/* acelera e some */
+#carro.parado {
+    transform: none
+}
+
+@keyframes entra {
+    from {
+        transform: translateX(-110%)
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}
+
+@keyframes sai {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(115%)
+    }
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 6vw;
+    padding-top: calc(16px + env(safe-area-inset-top, 0px));
+    flex-wrap: wrap;
+    gap: 8px
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--navy);
+    text-decoration: none
+}
+
+.logo b {
+    color: var(--teal)
+}
+
+.links {
+    display: flex;
+    gap: 6px;
+    align-items: center
+}
+
+.links a {
+    color: var(--navy);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 99px;
+    font-size: .95rem
+}
+
+.links a.on:not(.btn),
+.links a:hover:not(.btn) {
+    background: rgba(20, 184, 166, .15)
+}
+
+.btn {
+    background: var(--teal);
+    color: #fff !important;
+    border: 0;
+    border-radius: 99px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: .2s
+}
+
+.btn:hover {
+    background: var(--navy)
+}
+
+main {
+    position: relative;
+    z-index: 5;
+    height: 100%
+}
+
+.pagina {
+    position: absolute;
+    inset: 0;
+    padding: 100px 6vw 30px;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s
+}
+
+.pagina.ativa {
+    opacity: 1;
+    visibility: visible
+}
+
+.pagina:not(.larga) .cartao {
+    max-width: 480px
+}
+
+.cartao {
+    background: rgba(255, 255, 255, .78);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, .08)
+}
+
+.tag {
+    background: var(--mint);
+    padding: 5px 12px;
+    border-radius: 99px;
+    font-size: .8rem;
+    font-weight: 600
+}
+
+h1 {
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    margin: 14px 0
+}
+
+h1 em {
+    color: var(--teal);
+    font-style: normal
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin: 12px 0
+}
+
+h3 {
+    font-size: 1rem;
+    margin-bottom: 8px
+}
+
+small {
+    color: #64748b;
+    font-weight: 400
+}
+
+p {
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 16px
+}
+
+.lista {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 22px
+}
+
+.lista li {
+    padding: 6px 0
+}
+
+.valores div {
+    border-left: 4px solid var(--teal);
+    padding: 6px 12px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column
+}
+
+.valores span {
+    color: #64748b;
+    font-size: .9rem
+}
+
+/* vagas */
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    margin: 14px 0 20px
+}
+
+.tipos {
+    display: flex;
+    gap: 8px
+}
+
+.tipos button {
+    border: 2px solid var(--gray);
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--navy)
+}
+
+.tipos button.on {
+    border-color: var(--teal);
+    background: var(--mint)
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 200px
+}
+
+input[type=range] {
+    accent-color: var(--teal)
+}
+
+.total {
+    margin-left: auto;
+    font-size: 1rem
+}
+
+.total strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--teal)
+}
+
+.graficos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px
+}
+
+.graf {
+    background: #fff;
+    border-radius: 16px;
+    padding: 8px;
+    touch-action: none;
+    user-select: none
+}
+
+.graf svg {
+    width: 100%;
+    height: auto;
+    display: block
+}
+
+/* login */
+.abas {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px
+}
+
+.abas button {
+    flex: 1;
+    padding: 10px;
+    border: 0;
+    border-radius: 99px;
+    background: var(--soft);
+    cursor: pointer;
+    font-weight: 600
+}
+
+.abas .on {
+    background: var(--navy);
+    color: #fff
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+input,
+select {
+    padding: 12px 14px;
+    border: 1.5px solid var(--gray);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fff
+}
+
+input:focus {
+    outline: 2px solid var(--teal)
+}
+
+.msg {
+    margin: 12px 0 0;
+    color: var(--teal);
+    font-weight: 600
+}
+
+@media(max-width:800px) {
+    .graficos {
+        grid-template-columns: 1fr
+    }
+
+    .total {
+        margin-left: 0
+    }
+
+    .tipos {
+        flex-wrap: wrap
+    }
+}

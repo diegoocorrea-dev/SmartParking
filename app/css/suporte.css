@@ -1,0 +1,113 @@
+.titulo {
+    text-align: center;
+    font-size: 50px
+}
+
+.sub-titulo {
+    text-align: center;
+    font-size: clamp(20px, 3vw, 40px);
+    padding: 0 16px
+}
+
+.suporte-page {
+    padding: 32px 16px 60px
+}
+
+.Card {
+    background: #0c2038;
+    min-height: 330px;
+    width: min(100%, 480px);
+    margin: 30px auto;
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    color: #ebf4fb
+}
+
+.Card form {
+    display: flex;
+    flex-direction: column;
+    gap: 9px
+}
+
+.Card label {
+    font-size: 14px;
+    color: #b6c9d8
+}
+
+.Card input,
+.Card select,
+.Card textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #29445e;
+    border-radius: 8px;
+    background: #13314b;
+    color: #ebf4fb;
+    font: inherit;
+    box-sizing: border-box
+}
+
+.Card textarea {
+    resize: vertical;
+    min-height: 110px
+}
+
+.Card button {
+    padding: 13px;
+    border: 0;
+    border-radius: 8px;
+    background: #02dbb5;
+    color: #0c2038;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px
+}
+
+.card-header h3 {
+    margin: 0
+}
+
+.card-header img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px
+}
+
+.suporte-msg {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 12px 0
+}
+
+.suporte-msg.erro {
+    background: #fdecef;
+    color: #a51d35
+}
+
+.suporte-msg.sucesso {
+    background: #dffaf3;
+    color: #08745f
+}
+
+@media(max-width:520px) {
+    .titulo {
+        font-size: 36px
+    }
+
+    .Card {
+        padding: 25px 18px
+    }
+
+    .suporte-page {
+        padding-top: 24px
+    }
+}
